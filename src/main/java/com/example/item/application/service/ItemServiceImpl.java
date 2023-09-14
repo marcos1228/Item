@@ -25,21 +25,25 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Flux<ItemDto> getAll() {
-        return null;
+        return itemRepository.findAll()
+                .map(getdItem -> itemMapper.toItemDto(getdItem));
     }
 
     @Override
     public Mono<ItemDto> getById(String id) {
-        return null;
+        return itemRepository.findById(id).map(findItem -> itemMapper.toItemDto(findItem));
     }
 
     @Override
-    public Mono<ItemDto> update(String id, ItemDto itemDto) {
+    public Mono<Object> update(String id, ItemDto itemDto) {
+        Mono<Item> byId = itemRepository.findById(id);
+
+
         return null;
     }
 
     @Override
     public Mono<Void> delete(String id) {
-        return null;
+         return itemRepository.deleteById(id);
     }
 }
