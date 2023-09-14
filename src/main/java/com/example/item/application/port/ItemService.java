@@ -8,6 +8,6 @@ public interface ItemService {
     Mono<ItemDto> create(ItemDto itemDto);
     Flux<ItemDto> getAll();
     Mono<ItemDto> getById(String id);
-    Mono<Object> update(String id, ItemDto itemDto);
+    Mono<ItemDto> update(String id, ItemDto itemDto);
     Mono<Void> delete(String id);
 }

@@ -33,18 +33,15 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemDtoMono);
     }
 
-//    @PutMapping("/{id}")
-//    public Mono<Item> atualizarItem(@PathVariable String id, @RequestBody Item item) {
-//        return itemRepository.findById(id)
-//                .flatMap(itemExistente -> {
-//                    itemExistente.setNome(item.getNome());
-//                    return itemRepository.save(itemExistente);
-//                });
-//    }
-//
+    @PutMapping("/{id}")
+    public ResponseEntity<Mono<ItemDto>> atualizarItem(@PathVariable String id, @RequestBody ItemDto item) {
+        Mono<ItemDto> update = itemService.update(id, item);
+        return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Mono<Void>> deletarItem(@PathVariable String id) {
-          itemService.delete(id);
-        return ResponseEntity.noContent().build();
+        Mono<Void> delete = itemService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(delete);
     }
 }

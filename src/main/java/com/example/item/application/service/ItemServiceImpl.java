@@ -5,6 +5,7 @@ import com.example.item.domain.dto.ItemDto;
 import com.example.item.domain.model.Item;
 import com.example.item.domain.repository.ItemRepository;
 import com.example.item.framework.mapper.ItemMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -35,11 +36,17 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Mono<Object> update(String id, ItemDto itemDto) {
-        Mono<Item> byId = itemRepository.findById(id);
+    public Mono<ItemDto> update(String id, ItemDto itemDto) {
+        return itemRepository.findById(id)
+                .flatMap(existingItem -> {
+                    // Atualize os campos do item existente com base no ItemDto
+                    BeanUtils.copyProperties(itemDto, existingItem, "id");
+                    // "id" é excluído para evitar que seja modificado
 
-
-        return null;
+                    // Salve o item atualizado no repositório
+                    return itemRepository.save(existingItem)
+                            .map(updatedItem -> itemMapper.toItemDto(updatedItem));
+                });
     }
 
     @Override
