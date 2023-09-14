@@ -20,7 +20,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Mono<ItemDto> create(ItemDto itemDto) {
         Item item = itemMapper.toItem(itemDto);
-        return itemRepository.save(item)
+        return  itemRepository.save(item)
                 .map(savedItem -> itemMapper.toItemDto(savedItem));
     }
 
@@ -39,11 +39,7 @@ public class ItemServiceImpl implements ItemService {
     public Mono<ItemDto> update(String id, ItemDto itemDto) {
         return itemRepository.findById(id)
                 .flatMap(existingItem -> {
-                    // Atualize os campos do item existente com base no ItemDto
                     BeanUtils.copyProperties(itemDto, existingItem, "id");
-                    // "id" é excluído para evitar que seja modificado
-
-                    // Salve o item atualizado no repositório
                     return itemRepository.save(existingItem)
                             .map(updatedItem -> itemMapper.toItemDto(updatedItem));
                 });
