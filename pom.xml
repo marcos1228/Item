@@ -150,10 +150,10 @@
 						<configuration>
 							<outputDirectory>./_devops/artifacts/reports</outputDirectory>
 							<excludes>
-								<exclude>**/ItemApplication.class</exclude>
-								<exclude>**/dto/*/*.*</exclude>
-								<exclude>**/model/**</exclude>
-								<exclude>**/config/*.*</exclude>
+								<exclude>**/*ItemApplication.*</exclude>
+								<exclude>com/example/item/domain/*/**</exclude>
+								<exclude>com/example/item/framework/mapper/*/**</exclude>
+								<exclude>com/example/item/framework/config/*/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -172,11 +172,13 @@
 										<limit implementation="org.jacoco.report.check.Limit">
 											<counter>INSTRUCTION</counter>
 											<value>COVEREDRATIO</value>
+											<minimum>90%</minimum>
 											<!--											<minimum>0.90</minimum>-->
 										</limit>
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
+											<minimum>90%</minimum>
 											<!--											<minimum>0.90</minimum>-->
 										</limit>
 									</limits>
@@ -244,12 +246,12 @@
 				</dependencies>
 				<configuration>
 					<targetClasses>
-						<param>com.example.item.application.service*</param>
-						<param>com.example.item.framework.controller*</param>
+						<param>com/example/item/application/service*</param>
+						<param>com/example/item/framework/controller*</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.example.item.framework.controller*</param>
-						<param>com.example.item.application.service*</param>
+						<param>com/example/item/application/service*</param>
+						<param>com/example/item/framework/controller*</param>
 					</targetTests>
 					<excludedMethods>
 						<param>get*</param>

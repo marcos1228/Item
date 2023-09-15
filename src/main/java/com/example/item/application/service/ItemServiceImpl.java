@@ -10,17 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 @Service
 public class ItemServiceImpl implements ItemService {
     @Autowired
-    private  ItemRepository itemRepository;
+    private ItemRepository itemRepository;
     @Autowired
     private ItemMapper itemMapper;
 
     @Override
     public Mono<ItemDto> create(ItemDto itemDto) {
         Item item = itemMapper.toItem(itemDto);
-        return  itemRepository.save(item)
+        return itemRepository.save(item)
                 .map(savedItem -> itemMapper.toItemDto(savedItem));
     }
 
@@ -47,6 +48,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Mono<Void> delete(String id) {
-         return itemRepository.deleteById(id);
+        return itemRepository.deleteById(id);
     }
 }

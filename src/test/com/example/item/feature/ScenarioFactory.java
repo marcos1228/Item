@@ -7,29 +7,30 @@ import reactor.core.publisher.Mono;
 import java.math.BigDecimal;
 
 public class ScenarioFactory {
-    public ItemDto getItemDto(){
-        ItemDto itemDto = new ItemDto();
-        itemDto.setName("teste");
-        itemDto.setDescription("teste unitário");
-        itemDto.setQuantity(10);
-        itemDto.setPrice(BigDecimal.valueOf(1));
-        return itemDto;
+    public static  ItemDto inputDto(){
+        ItemDto inputDto = new ItemDto();
+        inputDto.setName("Produto A");
+        inputDto.setDescription("Produto de cozinha");
+        inputDto.setPrice(BigDecimal.valueOf(1));
+        inputDto.setQuantity(Integer.valueOf(1));
+        return inputDto;
     }
-    public Mono<Item> getItem(){
-        Item item = new Item();
-        item.setName("teste");
-        item.setDescription("teste unitário");
-        item.setQuantity(10);
-        item.setPrice(BigDecimal.valueOf(1));
-        return Mono.just(item);
+    public static  Item itemAfterConversion(){
+        Item itemAfterConversion = new Item();
+        itemAfterConversion.setName("Produto A");
+        itemAfterConversion.setDescription("Produto de cozinha");
+        itemAfterConversion.setPrice(BigDecimal.valueOf(1));
+        itemAfterConversion.setQuantity(Integer.valueOf(1));
+        return itemAfterConversion;
     }
 
-    public Mono<Item> savedItem(){
-        Item item = new Item();
-        item.setName("teste");
-        item.setDescription("teste unitário");
-        item.setQuantity(10);
-        item.setPrice(BigDecimal.valueOf(1));
-        return Mono.just(item);
+    public static  Item savedItem(){
+        Item savedItem = new Item();
+        savedItem.setId("1");
+        savedItem.setName("Produto A");
+        savedItem.setDescription("Produto de cozinha");
+        savedItem.setPrice(BigDecimal.valueOf(1));
+        savedItem.setQuantity(Integer.valueOf(1));
+        return savedItem;
     }
 }
