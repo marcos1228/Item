@@ -1,6 +1,6 @@
-package com.com.example.item.service;
+package com.example.item.service;
 
-import com.com.example.item.feature.ScenarioFactory;
+import com.example.item.feature.ScenarioFactory;
 import com.example.item.application.service.ItemServiceImpl;
 import com.example.item.domain.dto.ItemDto;
 import com.example.item.domain.model.Item;
@@ -10,14 +10,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.*;
-import org.reactivestreams.Publisher;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
-
-import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

@@ -150,7 +150,7 @@
 						<configuration>
 							<outputDirectory>./_devops/artifacts/reports</outputDirectory>
 							<excludes>
-								<exclude>**/TestingOnJavaApplication.class</exclude>
+								<exclude>**/ItemApplication.class</exclude>
 								<exclude>**/dto/*/*.*</exclude>
 								<exclude>**/model/**</exclude>
 								<exclude>**/config/*.*</exclude>
@@ -244,12 +244,12 @@
 				</dependencies>
 				<configuration>
 					<targetClasses>
-						<param>service.item..ItemServiceImplTest*</param>
+						<param>com.example.item.application.service*</param>
 						<param>com.example.item.framework.controller*</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.example.item.controller*</param>
-						<param>com.example.item.service*</param>
+						<param>com.example.item.framework.controller*</param>
+						<param>com.example.item.application.service*</param>
 					</targetTests>
 					<excludedMethods>
 						<param>get*</param>

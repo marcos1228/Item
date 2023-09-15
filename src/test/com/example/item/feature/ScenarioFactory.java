@@ -1,4 +1,4 @@
-package com.com.example.item.feature;
+package com.example.item.feature;
 
 import com.example.item.domain.dto.ItemDto;
 import com.example.item.domain.model.Item;
