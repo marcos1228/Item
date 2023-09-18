@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">item</a> &gt; <a href="index.source.html" class="el_package">com.example.item.application.service</a> &gt; <span class="el_source">ItemServiceImpl.java</span></div><h1>ItemServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.item.application.service;
+
+import com.example.item.application.port.ItemService;
+import com.example.item.domain.dto.ItemDto;
+import com.example.item.domain.model.Item;
+import com.example.item.domain.repository.ItemRepository;
+import com.example.item.framework.mapper.ItemMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@Service
+<span class="fc" id="L15">public class ItemServiceImpl implements ItemService {</span>
+    @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
+    private ItemMapper itemMapper;
+
+    @Override
+    public Mono&lt;ItemDto&gt; create(ItemDto itemDto) {
+<span class="fc" id="L23">        Item item = itemMapper.toItem(itemDto);</span>
+<span class="fc" id="L24">        return itemRepository.save(item)</span>
+<span class="fc" id="L25">                .map(savedItem -&gt; itemMapper.toItemDto(savedItem));</span>
+    }
+
+    @Override
+    public Flux&lt;ItemDto&gt; getAll() {
+<span class="fc" id="L30">        return itemRepository.findAll()</span>
+<span class="fc" id="L31">                .map(getdItem -&gt; itemMapper.toItemDto(getdItem));</span>
+    }
+
+    @Override
+    public Mono&lt;ItemDto&gt; getById(String id) {
+<span class="fc" id="L36">        return itemRepository.findById(id).map(findItem -&gt; itemMapper.toItemDto(findItem));</span>
+    }
+
+    @Override
+    public Mono&lt;ItemDto&gt; update(String id, ItemDto itemDto) {
+<span class="fc" id="L41">        return itemRepository.findById(id)</span>
+<span class="fc" id="L42">                .flatMap(existingItem -&gt; {</span>
+<span class="fc" id="L43">                    BeanUtils.copyProperties(itemDto, existingItem, &quot;id&quot;);</span>
+<span class="fc" id="L44">                    return itemRepository.save(existingItem)</span>
+<span class="fc" id="L45">                            .map(updatedItem -&gt; itemMapper.toItemDto(updatedItem));</span>
+                });
+    }
+
+    @Override
+    public Mono&lt;Void&gt; delete(String id) {
+<span class="fc" id="L51">        return itemRepository.deleteById(id);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

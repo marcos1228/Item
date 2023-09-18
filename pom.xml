@@ -246,14 +246,14 @@
 				</dependencies>
 				<configuration>
 					<targetClasses>
-						<param>com.example.item.application.service.Calculadora</param>
-						<param>com.example.item.framework.controller*</param>
+						<param>com.example.item.application.service*</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.example.item.application.service.Calculadora</param>
-						<param>com.example.item.framework.controller*</param>
+						<param>com.example.item.service.mutation*</param>
 					</targetTests>
 					<excludedMethods>
+						<param>get*</param>
+						<param>set*</param>
 						<param>equals</param>
 						<param>hashCode</param>
 						<param>toString</param>

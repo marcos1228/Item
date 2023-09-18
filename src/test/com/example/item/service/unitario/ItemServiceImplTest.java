@@ -4,7 +4,6 @@ import com.example.item.application.service.ItemServiceImpl;
 import com.example.item.domain.dto.ItemDto;
 import com.example.item.domain.model.Item;
 import com.example.item.domain.repository.ItemRepository;
-import com.example.item.feature.ScenarioFactory;
 import com.example.item.framework.mapper.ItemMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +16,8 @@ import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,8 +26,6 @@ public class ItemServiceImplTest {
     private ItemServiceImpl itemService;
     @Mock
     private ItemRepository itemRepository;
-    @Mock
-    private ScenarioFactory scenarioFactory;
     @Mock
     private ItemMapper itemMapper;
 
@@ -59,6 +58,7 @@ public class ItemServiceImplTest {
 
         StepVerifier.create(result)
                 .expectNext(inputDto)
+
                 .verifyComplete();
         verify(itemMapper, times(1)).toItem(inputDto);
         verify(itemRepository, times(1)).save(itemAfterConversion);
@@ -185,4 +185,5 @@ public class ItemServiceImplTest {
                 .verifyComplete();
         verify(itemRepository).deleteById(itemId);
     }
+
 }
