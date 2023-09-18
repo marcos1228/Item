@@ -1,4 +1,4 @@
-package com.example.item.service;
+package com.example.item.service.unitario;
 
 import com.example.item.application.service.ItemServiceImpl;
 import com.example.item.domain.dto.ItemDto;
