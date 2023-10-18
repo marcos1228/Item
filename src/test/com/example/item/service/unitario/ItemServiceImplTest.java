@@ -2,6 +2,7 @@ package com.example.item.service.unitario;
 
 import com.example.item.application.service.ItemServiceImpl;
 import com.example.item.domain.dto.ItemDto;
+import com.example.item.domain.dto.ItemRecordDto;
 import com.example.item.domain.model.Item;
 import com.example.item.domain.repository.ItemRepository;
 import com.example.item.framework.mapper.ItemMapper;
@@ -31,38 +32,24 @@ public class ItemServiceImplTest {
 
     @Test
     public void Should_Create_Item_Success() {
-        var inputDto = new ItemDto();
-        inputDto.setName("Produto A");
-        inputDto.setDescription("Produto de cozinha");
-        inputDto.setPrice(BigDecimal.valueOf(1));
-        inputDto.setQuantity(Integer.valueOf(1));
+        ItemRecordDto inputDto = new ItemRecordDto("Item Name", "Item Description", new BigDecimal(1), 5);
 
-        var itemAfterConversion = new Item();
-        itemAfterConversion.setName("Produto A");
-        itemAfterConversion.setDescription("Produto de cozinha");
-        itemAfterConversion.setPrice(BigDecimal.valueOf(1));
-        itemAfterConversion.setQuantity(Integer.valueOf(1));
+        when(itemRepository.save(any(Item.class))).thenReturn(Mono.just(new Item(inputDto.name(), inputDto.description(), inputDto.price(), inputDto.quantity())));
 
-        var savedItem = new Item();
-        savedItem.setId("1");
-        savedItem.setName("Produto A");
-        savedItem.setDescription("Produto de cozinha");
-        savedItem.setPrice(BigDecimal.valueOf(1));
-        savedItem.setQuantity(Integer.valueOf(1));
+        Mono<ItemRecordDto> resultMono = itemService.create(inputDto);
 
-        when(itemMapper.toItem(inputDto)).thenReturn(itemAfterConversion);
-        when(itemRepository.save(itemAfterConversion)).thenReturn(Mono.just(savedItem));
-        when(itemMapper.toItemDto(savedItem)).thenReturn(inputDto);
-
-        var result = itemService.create(inputDto);
-
-        StepVerifier.create(result)
-                .expectNext(inputDto)
-
+        verify(itemRepository, times(1)).save(argThat(item ->
+                item.getName().equals(inputDto.name()) &&
+                        item.getDescription().equals(inputDto.description()) &&
+                        item.getPrice() == inputDto.price() &&
+                        item.getQuantity() == inputDto.quantity()));
+        StepVerifier.create(resultMono)
+                .expectNextMatches(savedItem ->
+                        savedItem.name().equals(inputDto.name()) &&
+                                savedItem.description().equals(inputDto.description()) &&
+                                savedItem.price() == inputDto.price() &&
+                                savedItem.quantity() == inputDto.quantity())
                 .verifyComplete();
-        verify(itemMapper, times(1)).toItem(inputDto);
-        verify(itemRepository, times(1)).save(itemAfterConversion);
-        verify(itemMapper, times(1)).toItemDto(savedItem);
     }
 
     @Test

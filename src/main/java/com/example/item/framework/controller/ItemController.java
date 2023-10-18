@@ -2,6 +2,7 @@ package com.example.item.framework.controller;
 
 import com.example.item.application.port.ItemService;
 import com.example.item.domain.dto.ItemDto;
+import com.example.item.domain.dto.ItemRecordDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public class ItemController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Mono<ItemDto>> criarItem(@RequestBody ItemDto itemDto) {
-        Mono<ItemDto> itemDtoMono = itemService.create(itemDto);
+    public ResponseEntity<Mono<ItemRecordDto>> criarItem(@RequestBody ItemRecordDto itemDto) {
+        Mono<ItemRecordDto> itemDtoMono = itemService.create(itemDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemDtoMono);
     }
 

@@ -2,6 +2,7 @@ package com.example.item.application.service;
 
 import com.example.item.application.port.ItemService;
 import com.example.item.domain.dto.ItemDto;
+import com.example.item.domain.dto.ItemRecordDto;
 import com.example.item.domain.model.Item;
 import com.example.item.domain.repository.ItemRepository;
 import com.example.item.framework.mapper.ItemMapper;
@@ -18,11 +19,23 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemMapper itemMapper;
 
+//    @Override
+//    public Mono<ItemDto> create(ItemDto itemDto) {
+//        Item item = itemMapper.toItem(itemDto);
+//        return itemRepository.save(item)
+//                .map(savedItem -> itemMapper.toItemDto(savedItem));
+//    }
+
     @Override
     public Mono<ItemDto> create(ItemDto itemDto) {
-        Item item = itemMapper.toItem(itemDto);
+        return null;
+    }
+
+    @Override
+    public Mono<ItemRecordDto> create(ItemRecordDto itemRecordDto) {
+        Item item = new Item(itemRecordDto.name(), itemRecordDto.description(), itemRecordDto.price(), itemRecordDto.quantity());
         return itemRepository.save(item)
-                .map(savedItem -> itemMapper.toItemDto(savedItem));
+                .map(savedItem -> new ItemRecordDto(savedItem.getName(), savedItem.getDescription(), savedItem.getPrice(), savedItem.getQuantity()));
     }
 
     @Override

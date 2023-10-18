@@ -16,6 +16,21 @@ public class Item {
     private BigDecimal price;
     private int quantity;
 
+    public Item() {
+    }
+
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public Item( String name, String description, BigDecimal price, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public void setId(String id) {
         this.id = id;
     }

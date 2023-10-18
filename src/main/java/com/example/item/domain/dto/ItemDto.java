@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import java.math.BigDecimal;
 
 public class ItemDto {
+   // public record ItemDto(String name, String description, BigDecimal price, int quantity)
     private String name;
     private String description;
     private BigDecimal price;
@@ -18,6 +19,9 @@ public class ItemDto {
     }
 
     public ItemDto() {
+    }
+
+    public ItemDto(String name, String description) {
     }
 
     public void setName(String name) {
